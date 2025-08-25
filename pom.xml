@@ -16,6 +16,8 @@
 	<packaging>pom</packaging> <!-- definir dependencia padre -->
 	<modules>
 		<module>config-server</module><!-- modulo config-server -->
+		<module>discovery-server</module><!-- modulo discovery-server -->
+		<module>microservices</module><!-- modulo microservices -->
 	</modules>
 	<properties>
 		<java.version>24</java.version>
