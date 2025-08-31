@@ -8,9 +8,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
@@ -19,6 +21,7 @@ public class GlobalExceptionHandler {
         var fieldName = "message";
         var errorMessage = "An error occurred, please try again later";
         errors.put(fieldName, errorMessage);
+        log.error("Error: ", ex.toString());
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorResponse(errors));
@@ -32,6 +35,7 @@ public class GlobalExceptionHandler {
             var errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
+        log.warn("Validation error: {}", ex.toString());
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorResponse(errors));
