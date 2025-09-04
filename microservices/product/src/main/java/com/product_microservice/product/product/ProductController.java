@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,12 +32,12 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductResponse> getProduct(Integer id) {
+    public ResponseEntity<ProductResponse> getProduct(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(service.getProductById(id));
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<ProductResponse> updateProduct(@Valid @RequestBody ProductRequest request, Integer id) {
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductResponse> updateProduct(@Valid @RequestBody ProductRequest request, @PathVariable("id") Integer id) {
         return ResponseEntity.ok(service.updateProductById(id, request));
     }
 }
