@@ -19,6 +19,7 @@
 	<modules>
 		<module>customer</module>
 		<module>common-exceptions</module>
+		<module>product</module>
 	</modules>
 
 	<properties>

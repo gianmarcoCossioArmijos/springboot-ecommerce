@@ -1,9 +1,11 @@
 package com.test.microservices_customer.customer.customer;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.test.microservices_customer.customer.exceptions.CustomerNotFoundException;
 
-import java.util.List;
-import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -33,7 +35,7 @@ public class CustomerService {
                 .toList();
     }
 
-    public Customer updateCustomer(String id, CustomerRequest request) {
+    public CustomerResponse updateCustomer(String id, CustomerRequest request) {
         Customer findCustomer = repository.findByIdAndStatus(id, true)
                 .orElseThrow(() -> new CustomerNotFoundException(String.format("Customer with id %s not found", id)));
         findCustomer.setFirstName(request.firstName());
@@ -43,7 +45,7 @@ public class CustomerService {
         findCustomer.setAddress(request.address());
         findCustomer.setCity(request.city());
         findCustomer.setStatus(request.status());
-        return repository.save(findCustomer);
+        return mapper.toCustomerResponse(repository.save(findCustomer));
     }
 
     public String updateCustomerStatus(String id, CustomerRequest request) {
